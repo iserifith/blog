@@ -23,9 +23,8 @@ import { PostService } from './post.service';
 import { map, isArray } from 'lodash';
 import { PostParams } from './models/view-models/post-params.model';
 import { PostVm } from './models/view-models/post-vm.model';
-import { ApiException } from '../shared/api-exception.model';
-import { GetOperationId } from '../shared/utilities/get-operation-id';
-import { MapperService } from 'shared/mapper/mapper.service';
+import { ApiException } from 'shared/api-exception.model';
+import { GetOperationId } from 'shared/utilities/get-operation-id';
 import { PostCategory } from './models/post-category.enum';
 import { ToBooleanPipe } from 'shared/pipes/to-boolean.pipes';
 import { Roles } from 'shared/decorators/roles.decorators';
@@ -40,8 +39,8 @@ export class PostController {
   constructor(private readonly _postService: PostService) {}
 
   @PostDeco()
-  @Roles(UserRole.Admin)
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  // @Roles(UserRole.Admin)
+  // @UseGuards(AuthGuard('jwt'), RolesGuard)
   @ApiResponse({ status: HttpStatus.CREATED, type: PostVm })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   @ApiOperation(GetOperationId(Post.modelName, 'Create'))
@@ -65,8 +64,8 @@ export class PostController {
   }
 
   @Get()
-  @Roles(UserRole.Admin)
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  // @Roles(UserRole.Admin)
+  // @UseGuards(AuthGuard('jwt'), RolesGuard)
   @ApiResponse({ status: HttpStatus.OK, type: PostVm, isArray: true })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, type: ApiException })
@@ -146,8 +145,8 @@ export class PostController {
   }
 
   @Delete(':id')
-  @Roles(UserRole.Admin)
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  // @Roles(UserRole.Admin)
+  // @UseGuards(AuthGuard('jwt'), RolesGuard)
   @ApiResponse({ status: HttpStatus.OK, type: PostVm })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   @ApiOperation(GetOperationId(Post.modelName, 'Delete'))
@@ -160,14 +159,13 @@ export class PostController {
     }
   }
 
-  @Get('id')
+  @Get(':title')
   @ApiResponse({ status: HttpStatus.OK, type: PostVm })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   @ApiOperation(GetOperationId(Post.modelName, 'Show'))
-  async show(@Param('id') id: string): Promise<PostVm> {
+  async show(@Param('title') title: string): Promise<PostVm[]> {
     try {
-      const post = await this._postService.findById(id);
-      return this._postService.map<PostVm>(post.toJSON());
+      return await this._postService.findByTitle(title);
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }

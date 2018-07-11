@@ -1,4 +1,4 @@
-import 'automapper-ts/dist/automapper';
+import 'automapper-ts';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -26,6 +26,14 @@ export class MapperService {
 
     config
       .createMap('Post[]', 'PostVm[]')
+      .forSourceMember('_id', opts => opts.ignore());
+
+    config
+      .createMap('Portfolio', 'PortfolioVm')
+      .forSourceMember('_id', opts => opts.ignore());
+
+    config
+      .createMap('Portfolio[]', 'PortfolioVm[]')
       .forSourceMember('_id', opts => opts.ignore());
   }
 }

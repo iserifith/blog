@@ -1,12 +1,15 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from 'app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { HttpExceptionFilter } from 'shared/filters/http-exception.filter';
+import * as cors from 'cors';
+
 
 declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(cors());
   const hostDomain = AppModule.isDev
     ? `${AppModule.host}:${AppModule.port}`
     : AppModule.host;
