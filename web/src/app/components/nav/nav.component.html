@@ -1,0 +1,61 @@
+<!-- <p-sidebar [(visible)]="display_sidebar" [fullScreen]="true" modal="false" styleClass="ui-sidebar-sm">
+  <p-panelMenu [model]="menu_items" [multiple]="false"></p-panelMenu>
+</p-sidebar>
+-->
+
+
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav mode="push" class="app-sidenav">
+    <mat-toolbar color="primary">
+      <span class="toolbar-filler"></span>
+      <button mat-icon-button (click)="sidenav.toggle()" class="mat-icon-button sidenav-toggle-button" [hidden]="!sidenav.opened">
+        <mat-icon aria-label="Menu" class="material-icons">close</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <div *ngFor="let item of menu_items">
+        <a mat-list-item class="sidenav-link" routerLink="{{item.routerLink}}" (click)="sidenav.toggle()">
+          <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+          <span class="title" mat-line>{{item.label}}</span>
+        </a>
+      </div>
+    </mat-nav-list>
+
+
+
+
+    <!-- <mat-nav-list>
+      <a mat-list-item class="sidenav-link" [routerLink]="['/']" (click)="sidenav.toggle()">
+        <mat-icon mat-list-icon>account_balance</mat-icon>
+        <span class="title" mat-line>Home</span>
+      </a>
+      <a mat-list-item class="sidenav-link" [routerLink]="['blog']" (click)="sidenav.toggle()">
+        <mat-icon mat-list-icon>blog</mat-icon>
+        <span class="title" mat-line>Blog</span>
+      </a>
+
+      <a mat-list-item class="sidenav-link" [routerLink]="['about']" (click)="sidenav.toggle()">
+        <mat-icon mat-list-icon>about</mat-icon>
+        <span class="title" mat-line>About</span>
+      </a>
+
+      <a mat-list-item class="sidenav-link" [routerLink]="['contact']" (click)="sidenav.toggle()">
+        <mat-icon mat-list-icon>contact</mat-icon>
+        <span class="title" mat-line>Contact</span>
+      </a> -->
+
+    <!-- </mat-nav-list> -->
+  </mat-sidenav>
+  <mat-toolbar id="appToolbar" [ngClass]="{'toolbar-fullscreen': (fullscreen$ | async)}" color="primary">
+    <button mat-icon-button (click)="sidenav.toggle()" class="mat-icon-button sidenav-toggle-button" [hidden]="sidenav.opened">
+      <mat-icon aria-label="Menu" class="material-icons">menu</mat-icon>
+    </button>
+    <h1 class="component-title">
+      <a class="title-link">{{title}}</a>
+    </h1>
+    <span class="toolbar-filler"></span>
+    <!--<button id="button-login" mat-button [routerLink]="['/signupin']" *ngIf="!(user | async)">Log In</button>-->
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>

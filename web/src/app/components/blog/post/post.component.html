@@ -1,0 +1,24 @@
+<!-- <div class="container">
+    <p-card *ngIf="post">
+        <div [innerHtml]="post.body"></div>
+    </p-card>
+    <hr>
+    <div>
+        <p-splitButton label="Options" [model]="options"></p-splitButton>
+    </div>
+</div> -->
+
+<mat-card *ngIf="post">
+    <mat-card-header>
+        <mat-card-title>{{post.title}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content [innerHtml]="post.body">
+    </mat-card-content>
+    <hr>
+    <div>
+        <button mat-raised-button (click)="updatePost()" color="primary">Update</button>
+        <button mat-raised-button (click)="deletePost()" color="warn">Delete</button>
+    </div>
+
+
+</mat-card>

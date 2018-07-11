@@ -1,0 +1,27 @@
+<div class="container">
+    <p-editor [(ngModel)]="body" [style]="{'height':'320px'}">
+    </p-editor>
+    <br>
+    <div class="col-8">
+        <div class="row">
+            <div class="col">
+                <mat-form-field>
+                    <mat-select placeholder="Category">
+                        <mat-option *ngFor="let category of categories" ngDefaultControl [(ngModel)]="selectedCategory" [value]="category.value">
+                            {{ category.label }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field>
+                    <input matInput placeholder="Title" [(ngModel)]="title" ngDefaultControl>
+                </mat-form-field>
+            </div>
+        </div>
+        <br>
+        <div class="col">
+            <button mat-raised-button (click)="submit()" color="primary">Post</button>
+        </div>
+    </div>
+</div>

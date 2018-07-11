@@ -1,0 +1,14 @@
+<div class="blog_component">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-4">
+        <mat-nav-list *ngIf="menu_items">
+          <a *ngFor="let item of menu_items" mat-list-item [routerLink]="[item.routerLink[0]]" [queryParams]="item.queryParams">{{item.label}}</a>
+        </mat-nav-list>
+      </div>
+      <div class="col-8">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
